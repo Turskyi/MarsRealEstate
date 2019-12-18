@@ -26,7 +26,7 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<MarsProperty>?) {
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
-        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+        val imgUri = it.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
                 .load(imgUri)
                 .apply(RequestOptions()

@@ -35,7 +35,7 @@ private val retrofit = Retrofit.Builder()
         .build()
 
 /**
- * A public interface that exposes the [getProperties] method
+ * A public interface that exposes the [getPropertiesAsync] method
  */
 interface MarsApiService {
     /**
@@ -45,7 +45,7 @@ interface MarsApiService {
      * HTTP method
      */
     @GET("realestate")
-    fun getProperties(@Query("filter") type: String):
+    fun getPropertiesAsync(@Query("filter") type: String):
     // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
             Deferred<List<MarsProperty>>
 }
