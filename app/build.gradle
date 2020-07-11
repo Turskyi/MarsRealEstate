@@ -6,9 +6,16 @@ apply plugin: "androidx.navigation.safeargs"
 
 android {
     compileSdkVersion 29
-    dataBinding {
-        enabled = true
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures{
+        dataBinding = true
+    }
+
     defaultConfig {
         applicationId "ua.turskyi.marsrealestate"
         minSdkVersion 19
@@ -23,6 +30,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     androidExtensions {
         experimental = true
     }
@@ -31,40 +41,46 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // Kotlin
+    /* Avoids error "Runtime JAR files in the classpath should have the same version." */
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.72"
+
+    /* ability to pass the layout ID to the constructor of the Activity or Fragment base class */
+    implementation 'androidx.appcompat:appcompat:1.3.0-alpha01'
+
+    /* Kotlin */
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
 
-    // Constraint Layout
+    /* Constraint Layout */
     implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
 
-    // ViewModel and LiveData
+    /* ViewModel and LiveData */
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
 
-    // Navigation
+    /* Navigation */
     implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
     implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
 
-    // Core with Ktx
+    /* Core with Ktx */
     implementation "androidx.core:core-ktx:$version_core"
 
-    // Moshi
+    /* Moshi */
     implementation "com.squareup.moshi:moshi:$version_moshi"
     implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
 
-    // Retrofit with Moshi Converter
+    /* Retrofit with Moshi Converter */
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
 
-    // Coroutines
+    /* Coroutines */
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_kotlin_coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
 
-    // Retrofit Coroutines Support
+    /* Retrofit Coroutines Support */
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
 
-    // Glide
+    /* Glide */
     implementation "com.github.bumptech.glide:glide:$version_glide"
 
-    // RecyclerView
+    /* RecyclerView */
     implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
 }

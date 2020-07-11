@@ -2,9 +2,9 @@ package ua.turskyi.marsrealestate.network
 
 import android.os.Parcelable
 import androidx.lifecycle.LiveData
-import ua.turskyi.marsrealestate.overview.MarsApiStatus
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
+import ua.turskyi.marsrealestate.overview.MarsApiStatus
 
 /**
  * Gets Mars real estate property information from the Mars API Retrofit service and updates the
@@ -14,11 +14,12 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class MarsProperty(
-        val id: String,
-        // used to map img_src from the JSON to imgSrcUrl in our class
-        @Json(name = "img_src") val imgSrcUrl: String,
-        val type: String,
-        val price: Double) : Parcelable {
+    val id: String,
+    /* used to map img_src from the JSON to imgSrcUrl in our class */
+    @Json(name = "img_src") val imgSrcUrl: String,
+    val type: String,
+    val price: Double
+) : Parcelable {
     val isRental
         get() = type == "rent"
 }

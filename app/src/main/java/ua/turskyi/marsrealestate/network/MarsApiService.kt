@@ -46,7 +46,7 @@ interface MarsApiService {
      */
     @GET("realestate")
     fun getPropertiesAsync(@Query("filter") type: String):
-    // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
+    /* The Coroutine Call Adapter allows us to return a Deferred, a Job with a result */
             Deferred<List<MarsProperty>>
 }
 

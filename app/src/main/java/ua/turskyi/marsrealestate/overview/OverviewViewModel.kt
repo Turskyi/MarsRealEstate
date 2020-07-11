@@ -17,32 +17,32 @@ enum class MarsApiStatus { LOADING, ERROR, DONE }
  */
 class OverviewViewModel : ViewModel() {
 
-    // The internal MutableLiveData that stores the status of the most recent request
+    /* The internal MutableLiveData that stores the status of the most recent request */
     private val _status = MutableLiveData<MarsApiStatus>()
 
-    // The external immutable LiveData for the request status
+    /* The external immutable LiveData for the request status */
     val status: LiveData<MarsApiStatus>
         get() = _status
 
-    // Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
-    // with new values
+    /* Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
+     with new values */
     private val _properties = MutableLiveData<List<MarsProperty>>()
 
-    // The external LiveData interface to the property is immutable, so only this class can modify
+    /* The external LiveData interface to the property is immutable, so only this class can modify */
     val properties: LiveData<List<MarsProperty>>
         get() = _properties
 
-    // Internally, we use a MutableLiveData to handle navigation to the selected property
+    /* Internally, we use a MutableLiveData to handle navigation to the selected property */
     private val _navigateToSelectedProperty = MutableLiveData<MarsProperty>()
 
-    // The external immutable LiveData for the navigation property
+    /* The external immutable LiveData for the navigation property */
     val navigateToSelectedProperty: LiveData<MarsProperty>
         get() = _navigateToSelectedProperty
 
-    // Create a Coroutine scope using a job to be able to cancel when needed
+    /* Create a Coroutine scope using a job to be able to cancel when needed */
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
+    /* the Coroutine runs using the Main (UI) dispatcher */
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     /**
@@ -60,11 +60,11 @@ class OverviewViewModel : ViewModel() {
      */
      private fun getMarsRealEstateProperties(filter: MarsApiFilter) {
         coroutineScope.launch {
-            // Get the Deferred object for our Retrofit request
+            /* Get the Deferred object for our Retrofit request */
             val getPropertiesDeferred = MarsApi.retrofitService.getPropertiesAsync(filter.value)
             try {
                 _status.value = MarsApiStatus.LOADING
-                // this will run on a thread managed by Retrofit
+                /* this will run on a thread managed by Retrofit */
                 val listResult = getPropertiesDeferred.await()
                 _status.value = MarsApiStatus.DONE
                 _properties.value = listResult
